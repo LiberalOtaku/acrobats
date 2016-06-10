@@ -8,29 +8,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
     <script>
-      angular.module('acrobatApp', [])
-      .controller('AcrobatController', function($scope) {
-        $scope.acrobats = [];
-        $scope.acrobat = {};
-        $scope.addAcrobat = function() {
-          $scope.acrobats.push($scope.acrobat);
-          $scope.acrobat = { name: '', act: '' };
-        };
-        $scope.removeLastAcrobat = function() {
-          $scope.acrobats.pop();
-        };
-        $scope.editAcrobat = function(acrobat) {
-          $scope.editing = true;
-          $scope.acrobat = acrobat;
-        };
-        $scope.updateAcrobat = function() {
-          $scope.acrobat = {};
-          $scope.editing = false;
-        };
-        $scope.deleteAcrobat = function(index) {
-          $scope.acrobats.splice(index, 1);
-        };
-      });
     </script>
   </head>
   <body ng-controller="AcrobatController">
@@ -52,7 +29,7 @@
       <h2>Member List</h2>
       <ul>
         <li ng-repeat="acrobat in acrobats track by $index">
-          The Fabulous {{ acrobat.name }}: Master of {{ acrobat.act }}!
+          The Fabulous <span ng-bind="acrobat.name"></span>: Master of <span ng-bind="acrobat.act"></span>!
           <a href="#" ng-click="editAcrobat(acrobat)">(edit)</a>
           <a href="#" ng-click="deleteAcrobat($index)">(delete)</a>
         </li>
