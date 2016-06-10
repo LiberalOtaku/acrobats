@@ -14,21 +14,38 @@
         $scope.acrobat = {};
         $scope.addAcrobat = function() {
           $scope.acrobats.push($scope.acrobat);
-          $scope.acrobat = {};
+          $scope.acrobat = { name: '', act: '' };
         };
         $scope.removeLastAcrobat = function() {
           $scope.acrobats.pop();
+        };
+        $scope.editAcrobat = function(acrobat) {
+          $scope.editing = true;
+          $scope.acrobat = acrobat;
+        };
+        $scope.updateAcrobat = function() {
+          $scope.acrobat = {};
+          $scope.editing = false;
+        };
+        $scope.deleteAcrobat = function(index) {
+          $scope.acrobats.splice(index, 1);
         };
       });
     </script>
   </head>
   <body ng-controller="AcrobatController">
     <h1>League of Acrobats</h1>
-    <form ng-submit="addAcrobat()">
-      <input type="text" ng-model="acrobat.name" placeholder="Enter Your Name">
-      <input type="text" ng-model="acrobat.act" placeholder="What's Your Act?">
+    <form ng-submit="addAcrobat()" ng-hide="editing">
+      <input type="text" ng-model="acrobat.name" placeholder="Enter Your Name" required>
+      <input type="text" ng-model="acrobat.act" placeholder="What's Your Act?" required>
       <button type="submit">Sign Me Up</button>
       <a href="#" ng-click="removeLastAcrobat()">Remove Last Acrobat</a>
+    </form>
+
+    <form ng-submit="updateAcrobat()" ng-show="editing">
+      <input type="text" ng-model="acrobat.name" placeholder="Enter Your Name" required>
+      <input type="text" ng-model="acrobat.act" placeholder="What's Your Act?" required>
+      <button type="submit">Stop Editing</button>
     </form>
 
     <div>
@@ -36,6 +53,8 @@
       <ul>
         <li ng-repeat="acrobat in acrobats track by $index">
           The Fabulous {{ acrobat.name }}: Master of {{ acrobat.act }}!
+          <a href="#" ng-click="editAcrobat(acrobat)">(edit)</a>
+          <a href="#" ng-click="deleteAcrobat($index)">(delete)</a>
         </li>
       </ul>
     </div>
