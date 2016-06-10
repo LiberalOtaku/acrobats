@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="acrobatApp">
+  <head>
+    <meta charset="utf-8">
+    <title>League of Acrobats</title>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.css"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+    <script>
+      angular.module('acrobatApp', [])
+      .controller('AcrobatController', function($scope) {
+        $scope.acrobats = [];
+        $scope.acrobat = {};
+        $scope.addAcrobat = function() {
+          $scope.acrobats.push($scope.acrobat);
+          $scope.acrobat = {};
+        };
+        $scope.removeLastAcrobat = function() {
+          $scope.acrobats.pop();
+        };
+      });
+    </script>
+  </head>
+  <body ng-controller="AcrobatController">
+    <h1>League of Acrobats</h1>
+    <form ng-submit="addAcrobat()">
+      <input type="text" ng-model="acrobat.name" placeholder="Enter Your Name">
+      <input type="text" ng-model="acrobat.act" placeholder="What's Your Act?">
+      <button type="submit">Sign Me Up</button>
+      <a href="#" ng-click="removeLastAcrobat()">Remove Last Acrobat</a>
+    </form>
+
+    <div>
+      <h2>Member List</h2>
+      <ul>
+        <li ng-repeat="acrobat in acrobats track by $index">
+          The Fabulous {{ acrobat.name }}: Master of {{ acrobat.act }}!
+        </li>
+      </ul>
+    </div>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.js"></script> -->
+  </body>
+</html>
